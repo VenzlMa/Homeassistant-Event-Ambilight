@@ -1,8 +1,8 @@
-# Homeassitant Event Ambilight
+# Homeassitant  Event Ambilight
 Python script to send RGB value events to your HA instance
 
 # Ambilight Script
-This script allows you to create an ambilight effect using Tuya bulbs and obtain RGB values from your current desktop colors. The script captures the screen, calculates the average RGB values of specified regions, and sends the RGB values to your Homeassitant instance via events.
+This script allows you to create an ambilight effect using Tuya bulbs and obtain RGB values from your current desktop colors. The script captures the screen, calculates the average RGB values of specified regions, and sends the RGB values to your HA instance via events.
 
 ## Prerequisites
 Before running the script, make sure you have the following:
@@ -26,14 +26,14 @@ pip install numpy mss keyboard requests
 python ambilight.py --event-api-url <event_api_url> --ha-token <ha_token> --offset <offset_value>
 ```
 
-- `event_api_url`: The Event API URL for your Homeassitant instance.
+- `event_api_url`: The Event API URL for your HA instance.
 
 Example:
 ```
 --event-api-url http://192.168.1.20:8123/api/events/
 ```
 
-- `ha_token`: Your Home Assistant token for authentication.
+- `ha_token`: Your HA token for authentication.
 - `offset_value`: The offset value for region placement. Adjust this value to customize the ambilight effect.
 
 4. Press the `^` key to stop the script and exit.
