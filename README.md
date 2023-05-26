@@ -1,0 +1,1 @@
+# Homeassitant-Event-Ambilight
