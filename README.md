@@ -1,4 +1,4 @@
-# Homeassitant  Event Ambilight
+# Home Assistant  Event Ambilight
 Python script to send RGB value events to your HA instance
 
 # Ambilight Script
