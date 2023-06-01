@@ -5,6 +5,8 @@ import mss
 import mss.tools
 import keyboard
 import requests
+import matplotlib.pyplot as plt
+import matplotlib.patches as patches
 
 # Create argument parser
 parser = argparse.ArgumentParser(description='Ambilight Script')
@@ -48,12 +50,12 @@ def get_screen_resolution():
         }
         return resolution
 
-def get_region_coordinates(region_width, region_height, screen_width, screen_height, top_offset, left_offset):
+def get_region_coordinates(region_width, region_height, screen_width, screen_height, offset):
     region = {
-        "top": top_offset,
-        "left": left_offset,
-        "width": region_width,
-        "height": region_height
+        "top": offset,
+        "left": screen_width,
+        "width": int(region_width),
+        "height": int(region_height)
     }
     return region
 
@@ -61,20 +63,37 @@ def get_region_coordinates(region_width, region_height, screen_width, screen_hei
 screen_resolution = get_screen_resolution()
 screen_width = screen_resolution["width"]
 screen_height = screen_resolution["height"]
-
-# Calculate region size and offsets
-region_width = screen_width // 2  # Teilen Sie die Breite des Bildschirms durch 2
-region_height = screen_height
-top_offset = offset  # Der obere Teil beginnt am oberen Rand des Bildschirms
-
-# Calculate left and right offsets
-left_offset_l = offset  # Linker Teil beginnt am linken Rand des Bildschirms
-left_offset_r = region_width - offset  # Rechter Teil beginnt nach der Breite des linken Teils
+region_width = (screen_width // 2) * 0.80
+region_height = (screen_height // 2) * 0.80
 
 # Create the regions
-region_l = get_region_coordinates(region_width, region_height, screen_width, screen_height, top_offset, left_offset_l)
-region_r = get_region_coordinates(region_width, region_height, screen_width, screen_height, top_offset, left_offset_r)
+region_l = get_region_coordinates(region_width, region_height, 0 + offset, screen_height, offset)
+region_r = get_region_coordinates(region_width, region_height, screen_width // 2, screen_height, offset)
 
+print(region_l)
+print(region_r)
+
+# Create a figure and axis
+fig, ax = plt.subplots()
+
+# Draw the screen rectangle
+screen_rect = patches.Rectangle((0, 0), screen_width, screen_height, linewidth=1, edgecolor='black', facecolor='none')
+ax.add_patch(screen_rect)
+
+# Draw the left region rectangle
+region_l_rect = patches.Rectangle((region_l['left'], region_l['top']), region_l['width'], region_l['height'], linewidth=1, edgecolor='red', facecolor='none')
+ax.add_patch(region_l_rect)
+
+# Draw the right region rectangle
+region_r_rect = patches.Rectangle((region_r['left'], region_r['top']), region_r['width'], region_r['height'], linewidth=1, edgecolor='blue', facecolor='none')
+ax.add_patch(region_r_rect)
+
+# Set the aspect ratio and limits of the plot
+ax.set_aspect('equal')
+ax.set_xlim(0, screen_width)
+ax.set_ylim(0, screen_height)
+
+plt.show()
 
 # Create a flag to control the loop
 running = True
@@ -105,6 +124,8 @@ with mss.mss() as sct:
 
         # Fire the event with the payload
         fire_event("ambi", payload)
+        # Show the plot
+        
 
 # Release the keyboard listener
 keyboard.unhook_all()
