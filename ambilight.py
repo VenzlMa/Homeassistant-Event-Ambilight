@@ -5,8 +5,8 @@ import mss
 import mss.tools
 import keyboard
 import requests
-import matplotlib.pyplot as plt
-import matplotlib.patches as patches
+#import matplotlib.pyplot as plt
+#import matplotlib.patches as patches
 
 # Create argument parser
 parser = argparse.ArgumentParser(description='Ambilight Script')
@@ -73,27 +73,31 @@ region_r = get_region_coordinates(region_width, region_height, screen_width // 2
 print(region_l)
 print(region_r)
 
+
+#print(region_l)
+#print(region_r)
+
 # Create a figure and axis
-fig, ax = plt.subplots()
+#fig, ax = plt.subplots()
 
 # Draw the screen rectangle
-screen_rect = patches.Rectangle((0, 0), screen_width, screen_height, linewidth=1, edgecolor='black', facecolor='none')
-ax.add_patch(screen_rect)
+#screen_rect = patches.Rectangle((0, 0), screen_width, screen_height, linewidth=1, edgecolor='black', facecolor='none')
+#ax.add_patch(screen_rect)
 
 # Draw the left region rectangle
-region_l_rect = patches.Rectangle((region_l['left'], region_l['top']), region_l['width'], region_l['height'], linewidth=1, edgecolor='red', facecolor='none')
-ax.add_patch(region_l_rect)
+#region_l_rect = patches.Rectangle((region_l['left'], region_l['top']), region_l['width'], region_l['height'], linewidth=1, edgecolor='red', facecolor='none')
+#ax.add_patch(region_l_rect)
 
 # Draw the right region rectangle
-region_r_rect = patches.Rectangle((region_r['left'], region_r['top']), region_r['width'], region_r['height'], linewidth=1, edgecolor='blue', facecolor='none')
-ax.add_patch(region_r_rect)
+#region_r_rect = patches.Rectangle((region_r['left'], region_r['top']), region_r['width'], region_r['height'], linewidth=1, edgecolor='blue', facecolor='none')
+#ax.add_patch(region_r_rect)
 
 # Set the aspect ratio and limits of the plot
-ax.set_aspect('equal')
-ax.set_xlim(0, screen_width)
-ax.set_ylim(0, screen_height)
+#ax.set_aspect('equal')
+#ax.set_xlim(0, screen_width)
+#ax.set_ylim(0, screen_height)
 
-plt.show()
+#plt.show()
 
 # Create a flag to control the loop
 running = True
